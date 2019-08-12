@@ -27,8 +27,7 @@ SHIPPING_SERVICES = {
 }
 
 class UPSError(Exception):
-    def __init__(self, message):
-        self.message = message
+    pass
 
 class UPSConnection(object):
 
@@ -241,11 +240,11 @@ class Rates(object):
         }}
 
         if from_addr.get('state'):
-            shipping_request['RatingServiceSelectionRequest']['Shipment']['Shipper']['Address']['StateProvinceCode'] = from_addr['state']
-            shipping_request['RatingServiceSelectionRequest']['Shipment']['ShipFrom']['Address']['StateProvinceCode'] = from_addr['state']
+            rates_request['RatingServiceSelectionRequest']['Shipment']['Shipper']['Address']['StateProvinceCode'] = from_addr['state']
+            rates_request['RatingServiceSelectionRequest']['Shipment']['ShipFrom']['Address']['StateProvinceCode'] = from_addr['state']
 
         if to_addr.get('state'):
-            shipping_request['RatingServiceSelectionRequest']['Shipment']['ShipTo']['Address']['StateProvinceCode'] = to_addr['state']
+            rates_request['RatingServiceSelectionRequest']['Shipment']['ShipTo']['Address']['StateProvinceCode'] = to_addr['state']
 
         self.rate_result = ups_conn._transmit_request('rate', rates_request)
 
